@@ -1,11 +1,9 @@
 from os import getenv as ge
-from dotenv import load_dotenv
 from requests_toolbelt import sessions
 from msal import ConfidentialClientApplication
+from bbrest import BbRest
 
-load_dotenv()
-
-def team_client():
+def teams_session():
     client_id = ge('client_id')
     authority_id = ge('authority_id')
     client_credential = ge('client_credential')
@@ -24,5 +22,11 @@ def team_client():
     ms_s.headers.update({"Authorization":f"Bearer {token}"})
     return ms_s
 
-def bb_client():
-    
+def bb_session():
+    bb = BbRest(url=ge('bburl'), 
+            key=ge('bbkey'), 
+            secret=ge('bbsecret'))
+    bb_s = sessions.BaseUrlSession(base_url=f"{ge('bburl')}/learn/api/public/")
+    bb_s.headers.update(bb.session.headers)
+
+    return bb_s

@@ -10,6 +10,8 @@ bbrest = "*"
 requests = "*"
 requests-toolbelt = "*"
 msal = "*"
+python-dotenv = "*"
+jupyterlab = "*"
 
 [requires]
 python_version = "3.8"
